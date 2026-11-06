@@ -1,10 +1,12 @@
 # Open2Nec
 
+[![CI](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml/badge.svg)](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml)
+
 Interface web moderne pour simuler des antennes NEC-2 : géométrie, vue 3D, diagrammes de rayonnement, balayage en fréquence et optimisation.
 
 <img src="docs/images/interface.png" alt="Interface Open2Nec" width="800">
 
-Open2Nec is a modern web interface for NEC-2 antenna simulation. It relies on [OpenNEC](https://github.com/maurymarkowitz/OpenNEC) (`onec`), which performs all the calculations. The project is in alpha, so bugs and breaking changes are to be expected.
+Open2Nec is a modern web interface for NEC-2 antenna simulation. It relies on [OpenNEC](https://github.com/maurymarkowitz/OpenNEC) (`onec`), which performs all the calculations. The project is in alpha, so bugs and breaking changes are to be expected. Wire editor with symbols/formulas, 3D view, radiation patterns, frequency sweep with Smith chart, 4NEC2 .nec import/export, optimizer. Runs locally with Docker.
 
 ## Fonctions
 
@@ -77,5 +79,3 @@ MIT, Copyright 2026 Albert Müller (ON5AM). Voir [LICENSE](LICENSE). OpenNEC est
 Albert Müller (ON5AM), [hamanalyst.org](https://hamanalyst.org).
 
 Projet indépendant, non affilié à 4NEC2.
-
-[![CI](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml/badge.svg)](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml)
