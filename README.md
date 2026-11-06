@@ -1,13 +1,58 @@
 # Open2Nec
 
-Interface web moderne pour la simulation d'antennes **NEC-2**, pensée comme un successeur
-spirituel de 4NEC2 : éditeur de géométrie, vue 3D, balayage SWR/impédance, optimiseur.
+Interface web moderne pour simuler des antennes NEC-2 : géométrie, vue 3D, diagrammes de rayonnement, balayage en fréquence et optimisation.
 
-Le calcul est délégué à [OpenNEC](https://github.com/maurymarkowitz/OpenNEC) (`onec`, MIT),
-un moteur NEC-2 en C rapide, multi-cœur, compatible avec les extensions de 4NEC2.
-Open2Nec n'en est **pas** un fork : c'est une interface et une bibliothèque Python par-dessus.
+<img src="docs/images/interface.png" alt="Interface Open2Nec" width="800">
 
-Avancement : voir [docs/roadmap.md](docs/roadmap.md).
+Open2Nec is a modern web interface for NEC-2 antenna simulation. It relies on [OpenNEC](https://github.com/maurymarkowitz/OpenNEC) (`onec`), which performs all the calculations. The project is in alpha, so bugs and breaking changes are to be expected.
+
+## Fonctions
+
+- Tableau de fils avec symboles et formules
+- Vue 3D de la géométrie
+- Diagramme de rayonnement (coupes en azimut et en élévation)
+- Balayage ROS et impédance, abaque de Smith
+- Import et export de fichiers `.nec` (4NEC2)
+- Optimiseur (ROS, gain, rapport avant/arrière)
+- Modèles pré-remplis : dipôle, ground plane, Yagi 3 éléments, V inversé, quad 2 éléments
+- Thème clair ou sombre
+
+## Limites
+
+- **NEC-2 seulement** : les cartes NEC-4 ne sont pas gérées.
+- **`onec` est requis** : la version 2.3.3 est celle qui est testée. L'image Docker l'inclut.
+- **Version alpha** : l'interface et le format des données peuvent encore changer.
+- **Aucune authentification** : le conteneur écoute sur 127.0.0.1 seulement. Ne pas l'exposer sur un réseau.
+
+## Essayer
+
+### Avec Docker
+
+Depuis la racine du dépôt :
+
+```bash
+docker compose -f docker/compose.yaml up -d --build
+```
+
+Puis ouvrir http://localhost:8080. Si le port est pris :
+
+```bash
+OPEN2NEC_PORT=8099 docker compose -f docker/compose.yaml up -d --build
+```
+
+Puis ouvrir http://localhost:8099. Installation de Docker, arrêt et mise à jour de `onec` : voir [docker/README.md](docker/README.md).
+
+### Développement
+
+Pré-requis : Python ≥ 3.10, Node.js (version 22 en CI) et le binaire `onec`, trouvé via la variable `OPEN2NEC_ONEC`, puis dans `bin/`, puis dans le `PATH` ([releases d'OpenNEC](https://github.com/maurymarkowitz/OpenNEC/releases)).
+
+Depuis la racine du dépôt, de préférence dans un environnement virtuel Python, chaque ligne dans son terminal :
+
+```bash
+cd core && pip install -e ".[dev]" && pytest
+cd api && pip install -e ../core -e ".[dev]" && uvicorn app.main:app --reload
+cd web && npm install && npm run dev
+```
 
 ## Architecture
 
@@ -19,37 +64,18 @@ web/    Svelte + Vite + TypeScript (+ Three.js pour la 3D)
 
 Règle d'or : `core` ne dépend jamais de FastAPI ni d'une interface.
 
-## Démarrage rapide (core + CLI)
+## Avancement
 
-```bash
-# 1. Obtenir onec (binaire des releases OpenNEC, ou make dans le dépôt OpenNEC)
-export OPEN2NEC_ONEC=/chemin/vers/onec
-
-# 2. Installer le core
-cd core
-python -m venv .venv && source .venv/bin/activate
-pip install -e ".[dev]"
-
-# 3. Tester
-pytest
-
-# 4. Simuler un dipôle
-open2nec run ../examples/dipole.nec
-```
-
-## Docker
-
-Image locale complète (interface, API et `onec`), servie sur http://localhost:8080 :
-
-```bash
-bash docker/smoke-test.sh
-```
-
-Installation de Docker, arrêt et mise à jour de `onec` : voir
-[docker/README.md](docker/README.md). L'image est construite et essayée en CI (job `docker` : build
-+ smoke-test) et sur un PC Ubuntu : dipôle à 2,12 dBi. Si le port 8080 est pris :
-`OPEN2NEC_PORT=8099 bash docker/smoke-test.sh`.
+Voir [docs/roadmap.md](docs/roadmap.md).
 
 ## Licence
 
-MIT (voir `LICENSE`). OpenNEC est distribué séparément sous sa propre licence MIT.
+MIT, Copyright 2026 Albert Müller (ON5AM). Voir [LICENSE](LICENSE). OpenNEC est distribué séparément sous sa propre licence MIT.
+
+## Auteur
+
+Albert Müller (ON5AM), [hamanalyst.org](https://hamanalyst.org).
+
+Projet indépendant, non affilié à 4NEC2.
+
+[![CI](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml/badge.svg)](https://github.com/albertM-hub/open2nec/actions/workflows/ci.yml)
