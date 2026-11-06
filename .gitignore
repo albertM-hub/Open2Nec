@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+node_modules/
+web/dist/
+bin/onec
+bin/onec.exe
+*.out
+!core/tests/data/*.out
+.DS_Store

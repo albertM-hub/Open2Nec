@@ -1,0 +1,76 @@
+name: CI
+on: [push, pull_request]
+
+# Même version et même empreinte que docker/Dockerfile et docker/compose.yaml
+env:
+  ONEC_VERSION: "2.3.3"
+  ONEC_SHA256: 74c6d0e664e58689a9cd022c866ab0779fbe08ab3356fcb53f7f951b9cd8c75f
+
+jobs:
+  core:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Télécharger onec
+        run: |
+          curl -fsSL -o /tmp/onec.zip \
+            "https://github.com/maurymarkowitz/OpenNEC/releases/download/v.${ONEC_VERSION}/onec-linux-x86_64.zip"
+          echo "${ONEC_SHA256}  /tmp/onec.zip" | sha256sum -c -
+          python -m zipfile -e /tmp/onec.zip /tmp/onec
+          install -m 0755 /tmp/onec/onec-linux-x86_64/bin/onec "$RUNNER_TEMP/onec"
+          "$RUNNER_TEMP/onec" -v
+          echo "OPEN2NEC_ONEC=$RUNNER_TEMP/onec" >> "$GITHUB_ENV"
+      - name: Tests core
+        working-directory: core
+        run: |
+          pip install -e ".[dev]"
+          ruff check .
+          pytest
+
+  api:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      # Sans onec, les tests de simulation de l'API seraient tous ignorés (skip)
+      - name: Télécharger onec
+        run: |
+          curl -fsSL -o /tmp/onec.zip \
+            "https://github.com/maurymarkowitz/OpenNEC/releases/download/v.${ONEC_VERSION}/onec-linux-x86_64.zip"
+          echo "${ONEC_SHA256}  /tmp/onec.zip" | sha256sum -c -
+          python -m zipfile -e /tmp/onec.zip /tmp/onec
+          install -m 0755 /tmp/onec/onec-linux-x86_64/bin/onec "$RUNNER_TEMP/onec"
+          "$RUNNER_TEMP/onec" -v
+          echo "OPEN2NEC_ONEC=$RUNNER_TEMP/onec" >> "$GITHUB_ENV"
+      - name: Tests API
+        working-directory: api
+        run: |
+          pip install -e ../core -e ".[dev]"
+          ruff check .
+          pytest
+
+  web:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+      - name: Build web
+        working-directory: web
+        run: |
+          npm ci
+          npm run check
+          npm run build
+
+  docker:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Image et essai complet
+        run: bash docker/smoke-test.sh --down

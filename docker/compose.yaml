@@ -1,0 +1,28 @@
+# Open2Nec en local : docker compose -f docker/compose.yaml up -d --build
+# puis ouvrir http://localhost:8080 (voir docker/README.md)
+name: open2nec
+
+services:
+  open2nec:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        ONEC_VERSION: "2.3.3"
+        ONEC_SHA256: "74c6d0e664e58689a9cd022c866ab0779fbe08ab3356fcb53f7f951b9cd8c75f"
+    image: open2nec:local
+    # 127.0.0.1 seulement : la page n'est joignable que depuis ce PC, ni du réseau ni d'Internet
+    ports:
+      - "127.0.0.1:8080:8080"
+    restart: unless-stopped
+    # Durcissement : système de fichiers en lecture seule (sauf /tmp, où onec écrit ses decks),
+    # aucun privilège, mémoire et nombre de processus bornés
+    read_only: true
+    tmpfs:
+      - /tmp:size=256m
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 2g
+    pids_limit: 128

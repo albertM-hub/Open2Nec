@@ -1,0 +1,16 @@
+# Contexte de construction de l'image (docker/Dockerfile) : seulement core/, api/, web/
+**/node_modules
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.ruff_cache
+**/*.egg-info
+**/.venv
+web/dist
+bin/
+docs/
+examples/
+.git
+.github
+**/*.out
+!core/tests/data/*.out

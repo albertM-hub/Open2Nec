@@ -1,0 +1,17 @@
+CM Yagi 3 elements 14,2 MHz au format 4NEC2 (ecrit pour Open2Nec) :
+CM symboles avec reference en avant, formules dans les GW, rayon en symbole, arc GA, PT a ecarter
+CE
+SY f=14.2, Lr=1.05*Ld ' reflecteur 5 % plus long que le radiateur (Ld defini plus bas)
+SY Ld=142.5/f, Ldir=0.95*Ld
+SY sp=3.0, h=12, r=0.006
+GW 1 21 -sp -Lr/2 h -sp Lr/2 h r
+GW 2 21 0 -Ld/2 h 0 Ld/2 h r
+GW 3 21 sp -Ldir/2 h sp Ldir/2 h r
+GA 4 8 0.5 0 90 0.001
+GE 1
+GN 2 0 0 0 13 0.005
+EX 0 2 11 0 1 0
+FR 0 3 0 0 f 0.1
+PT -1
+RP 0 37 73 1000 0 0 5 5
+EN

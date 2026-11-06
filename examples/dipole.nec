@@ -1,0 +1,9 @@
+CM Dipole demi-onde 14.2 MHz, 10 m de haut, sol reel
+CE
+GW 1 21 0 -5.0 10 0 5.0 10 0.001
+GE 1
+GN 2 0 0 0 13 0.005
+EX 0 1 11 0 1 0
+FR 0 3 0 0 14.0 0.2
+RP 0 37 73 1000 0 0 5 5
+EN

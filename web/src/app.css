@@ -1,0 +1,110 @@
+/* Styles de base et thème (clair et sombre).
+   Toutes les couleurs passent par ces variables, y compris celles de la vue 3D et des courbes,
+   lues par state/theme.svelte.ts. Thème : réglage du système, sauf choix forcé (data-theme). */
+
+:root {
+  color-scheme: light;
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --hover: #e9edf3;
+  --banner: #e6eefb;
+  --border: #d4d9e0;
+  --border-soft: #e4e7ec;
+  --border-input: #b9c0ca;
+  --button-2: #e2e6ec;
+  --text: #1b1f24;
+  --text-strong: #000000;
+  --muted: #59636f;
+  --accent: #1f5fd6;
+  --accent-text: #ffffff;
+  --button-bg: #1f5fd6;
+  --ok: #0f7b55;
+  --warn: #a35a00;
+  --warn-text: #8a4b00;
+  --error: #c42b2b;
+  --formula: #1d4ed8;
+  --series-2: #c2410c;
+  --danger: #b42318;
+  --apply: #13795b;
+  --canvas: #fbfcfd;
+  --wire: #1b1f24;
+  --node: #6b7685;
+  --grid3d: #cfd5dd;
+  --grid3d-center: #9aa4b1;
+  --focus: #0e7490;
+}
+
+/* Sombre : réglage du système (sauf clair forcé), ou sombre forcé */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0f1115;
+    --surface: #1a1d24;
+    --hover: #1a1f28;
+    --banner: #16202e;
+    --border: #262b34;
+    --border-soft: #1d2129;
+    --border-input: #333333;
+    --button-2: #262b34;
+    --text: #e6e8ec;
+    --text-strong: #ffffff;
+    --muted: #9aa3b2;
+    --accent: #4f8cff;
+    --accent-text: #ffffff;
+    --button-bg: #2563eb;
+    --ok: #4fd1a5;
+    --warn: #ffb020;
+    --warn-text: #ffcc66;
+    --error: #ff6b6b;
+    --formula: #9fd0ff;
+    --series-2: #ff8a65;
+    --danger: #c0392b;
+    --apply: #1d7a56;
+    --canvas: #14171d;
+    --wire: #e6e8ec;
+    --node: #8fa3c0;
+    --grid3d: #3a4250;
+    --grid3d-center: #5a6578;
+    --focus: #4fd1ff;
+  }
+}
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0f1115;
+  --surface: #1a1d24;
+  --hover: #1a1f28;
+  --banner: #16202e;
+  --border: #262b34;
+  --border-soft: #1d2129;
+  --border-input: #333333;
+  --button-2: #262b34;
+  --text: #e6e8ec;
+  --text-strong: #ffffff;
+  --muted: #9aa3b2;
+  --accent: #4f8cff;
+  --accent-text: #ffffff;
+  --button-bg: #2563eb;
+  --ok: #4fd1a5;
+  --warn: #ffb020;
+  --warn-text: #ffcc66;
+  --error: #ff6b6b;
+  --formula: #9fd0ff;
+  --series-2: #ff8a65;
+  --danger: #c0392b;
+  --apply: #1d7a56;
+  --canvas: #14171d;
+  --wire: #e6e8ec;
+  --node: #8fa3c0;
+  --grid3d: #3a4250;
+  --grid3d-center: #5a6578;
+  --focus: #4fd1ff;
+}
+
+body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg); color: var(--text); }
+label { display: flex; flex-direction: column; font-size: 12px; gap: 4px; }
+input, select { padding: 6px; background: var(--surface); color: inherit; border: 1px solid var(--border-input); border-radius: 4px; font: inherit; }
+input:focus, select:focus { outline: 1px solid var(--accent); border-color: var(--accent); }
+button { padding: 8px 16px; background: var(--button-bg); color: var(--accent-text); border: 0; border-radius: 4px; cursor: pointer; font: inherit; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+button[type='button'] { background: var(--button-2); color: var(--text); }
+h2 { font-size: 14px; font-weight: 600; margin: 0 0 8px; opacity: 0.9; }
