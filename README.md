@@ -47,8 +47,8 @@ bash docker/smoke-test.sh
 
 Installation de Docker, arrêt et mise à jour de `onec` : voir
 [docker/README.md](docker/README.md). L'image est construite et essayée en CI (job `docker` : build
-+ smoke-test, dipôle à 2,12 dBi). L'essai sur un PC local reste à faire : installer Docker, puis
-lancer le script ci-dessus.
++ smoke-test) et sur un PC Ubuntu : dipôle à 2,12 dBi. Si le port 8080 est pris :
+`OPEN2NEC_PORT=8099 bash docker/smoke-test.sh`.
 
 ## Licence
 

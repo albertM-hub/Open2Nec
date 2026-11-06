@@ -6,7 +6,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 COMPOSE=(docker compose -f compose.yaml)
-URL=http://127.0.0.1:8080
+URL=http://127.0.0.1:${OPEN2NEC_PORT:-8080}
 
 echo "1/4 Construction et démarrage (la première fois : quelques minutes)…"
 "${COMPOSE[@]}" up -d --build

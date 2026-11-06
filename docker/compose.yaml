@@ -13,7 +13,7 @@ services:
     image: open2nec:local
     # 127.0.0.1 seulement : la page n'est joignable que depuis ce PC, ni du réseau ni d'Internet
     ports:
-      - "127.0.0.1:8080:8080"
+      - "127.0.0.1:${OPEN2NEC_PORT:-8080}:8080"
     restart: unless-stopped
     # Durcissement : système de fichiers en lecture seule (sauf /tmp, où onec écrit ses decks),
     # aucun privilège, mémoire et nombre de processus bornés

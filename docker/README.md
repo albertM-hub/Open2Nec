@@ -62,8 +62,14 @@ Pour une nouvelle version :
 
 ## 5. Problèmes courants
 
-- **Port 8080 déjà pris** : dans `docker/compose.yaml`, remplacer `127.0.0.1:8080:8080` par
-  par exemple `127.0.0.1:8081:8080`, puis ouvrir http://localhost:8081.
+- **Port 8080 déjà pris** : choisir un autre port avec `OPEN2NEC_PORT`, puis ouvrir
+  http://localhost:8099. La variable est à repréciser à chaque lancement.
+
+  ```bash
+  OPEN2NEC_PORT=8099 docker compose -f docker/compose.yaml up -d
+  OPEN2NEC_PORT=8099 bash docker/smoke-test.sh
+  ```
+
 - **« permission denied » sur le socket Docker** : la session n'a pas encore pris en compte le
   groupe `docker` (étape 1) ; se déconnecter puis se reconnecter.
 - **Calcul refusé** : les limites sont les mêmes qu'en développement (2000 segments,

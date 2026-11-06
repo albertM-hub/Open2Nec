@@ -63,6 +63,5 @@ API (service des fichiers statiques) → interface (thème) → Docker → Chrom
 - `app.serve` : interface sous `/`, API sous `/api`, CSP `default-src 'self'` (aucun refus dans
   Chrome), middleware ASGI pur (SSE non retenu). Étape finale de l'image simulée sans Docker
   (installation non éditable) : page, presets, dipôle 2,12 dBi.
-- Image Docker construite avec succès en CI le 2026-11-06 (job `docker` : build + smoke-test,
-  dipôle à 2,12 dBi). Essai sur PC local à faire : installer Docker, puis
-  `bash docker/smoke-test.sh` (voir docker/README.md).
+- Image Docker construite et essayée en CI (job `docker` : build + smoke-test) et sur un PC
+  Ubuntu, dipôle à 2,12 dBi (voir docker/README.md).
