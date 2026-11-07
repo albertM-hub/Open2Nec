@@ -78,4 +78,6 @@ MIT, Copyright 2026 Albert Müller (ON5AM). Voir [LICENSE](LICENSE). OpenNEC est
 
 Albert Müller (ON5AM), [hamanalyst.org](https://hamanalyst.org).
 
+Article de présentation : [Open2Nec : une interface web open source pour simuler ses antennes avec NEC-2](https://hamanalyst.org/open2nec-simulation-antennes-nec-2/).
+
 Projet indépendant, non affilié à 4NEC2.
